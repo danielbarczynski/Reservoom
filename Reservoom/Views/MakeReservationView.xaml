@@ -21,8 +21,8 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock  Text="Name" Grid.Row="0"></TextBlock>
-            <TextBox Text="" Margin="0 5 0 0" Grid.Row="1"></TextBox>
+            <TextBlock Text="Username" Grid.Row="0"></TextBlock>
+            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Margin="0 5 0 0" Grid.Row="1"></TextBox>
         </Grid>
 
         <Grid Grid.Row="2" Margin="0 20 0 0">
@@ -34,10 +34,10 @@
                 <ColumnDefinition Width="auto" SharedSizeGroup="FirstColumn"></ColumnDefinition>
                 <ColumnDefinition Width="auto" SharedSizeGroup="SecondColumn"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock  Text="Floor No." Grid.Row="0" Grid.Column="0"></TextBlock>
-            <TextBlock  Text="Room No." Grid.Row="0" Grid.Column="1" Margin="5 0 0 0"></TextBlock>
-            <TextBox Text="" Grid.Row="1" Grid.Column="0"  Margin="0 5 0 0"></TextBox>
-            <TextBox Text="" Grid.Row="1" Grid.Column="1" Margin="5 5 0 0"></TextBox>
+            <TextBlock Text="Floor No." Grid.Row="0" Grid.Column="0"></TextBlock>
+            <TextBlock Text="Room No." Grid.Row="0" Grid.Column="1" Margin="5 0 0 0"></TextBlock>
+            <TextBox Text="{Binding FloorNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="0"  Margin="0 5 0 0"></TextBox>
+            <TextBox Text="{Binding RoomNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Margin="5 5 0 0"></TextBox>
         </Grid>
 
         <Grid Grid.Row="3" Margin="0 20 0 0">
@@ -51,13 +51,13 @@
             </Grid.ColumnDefinitions>
             <TextBlock  Text="Start Date" Grid.Row="0" Grid.Column="0"></TextBlock>
             <TextBlock  Text="End Date" Grid.Row="0" Grid.Column="1" Margin="5 0 0 0"></TextBlock>
-            <DatePicker SelectedDate="" Grid.Row="1" Grid.Column="0"  Margin="0 5 0 0" ></DatePicker>
-            <DatePicker SelectedDate="" Grid.Row="1" Grid.Column="1" Margin="5 5 0 0"></DatePicker>
+            <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="0"  Margin="0 5 0 0" ></DatePicker>
+            <DatePicker SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" Margin="5 5 0 0"></DatePicker>
         </Grid>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0 20 0 0">
-            <Button Content="Submit"></Button>
-            <Button Content="Cancel" Margin="5 0 0 0"></Button>
+            <Button Command="{Binding SubmitCommand}" Content="Submit"></Button>
+            <Button Command="{Binding CancelCommand}" Content="Cancel" Margin="5 0 0 0"></Button>
         </StackPanel>
     </Grid>
 </UserControl>
