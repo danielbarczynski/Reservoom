@@ -18,9 +18,9 @@ namespace Reservoom.Models
             _reservationBook = new ReservationBook(); // no dependency injection
         }
 
-        public IEnumerable<Reservation> GetReservationsForUser(string username)
+        public IEnumerable<Reservation> GetAllReservations()
         {
-            return _reservationBook.GetReservationsForUser(username);
+            return _reservationBook.GetAllReservations();
         }
 
         public void MakeReservation(Reservation reservation)
