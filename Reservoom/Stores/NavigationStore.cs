@@ -5,15 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Reservoom.Store
+namespace Reservoom.Stores
 {
     public class NavigationStore
     {
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
         {
-            get { return _currentViewModel; }
-            set { _currentViewModel = value;
+            get => _currentViewModel;
+            set
+            {
+                _currentViewModel = value;
                 OnCurrentViewModelChanged();
             }
         }

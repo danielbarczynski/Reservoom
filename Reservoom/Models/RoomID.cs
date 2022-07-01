@@ -22,18 +22,21 @@ namespace Reservoom.Models
             return $"{FloorNumber}{RoomNumber}";
         }
 
-        public override bool Equals(object? obj) // for Dictionary<RoomID, List<Reservations>> to compare properties instead of class (?)
+        public override bool Equals(object obj)
         {
-            return obj is RoomID roomID && FloorNumber == roomID.FloorNumber && RoomNumber == roomID.RoomNumber;
+            return obj is RoomID roomID &&
+                FloorNumber == roomID.FloorNumber &&
+                RoomNumber == roomID.RoomNumber;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(FloorNumber, RoomNumber); 
+            return HashCode.Combine(FloorNumber, RoomNumber);
         }
+
         public static bool operator ==(RoomID roomID1, RoomID roomID2)
         {
-            if (roomID1 is null && roomID2 is null)
+            if(roomID1 is null && roomID2 is null)
             {
                 return true;
             }
@@ -45,5 +48,6 @@ namespace Reservoom.Models
         {
             return !(roomID1 == roomID2);
         }
+
     }
 }

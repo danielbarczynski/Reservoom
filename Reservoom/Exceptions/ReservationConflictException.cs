@@ -19,17 +19,16 @@ namespace Reservoom.Exceptions
             IncomingReservation = incomingReservation;
         }
 
-        public ReservationConflictException(string? message, Reservation existingReservation, Reservation incomingReservation) : base(message)
+        public ReservationConflictException(string message, Reservation existingReservation, Reservation incomingReservation) : base(message)
         {
             ExistingReservation = existingReservation;
             IncomingReservation = incomingReservation;
         }
 
-        public ReservationConflictException(string? message, Exception? innerException, Reservation existingReservation, Reservation incomingReservation) : base(message, innerException)
+        public ReservationConflictException(string message, Exception innerException, Reservation existingReservation, Reservation incomingReservation) : base(message, innerException)
         {
             ExistingReservation = existingReservation;
             IncomingReservation = incomingReservation;
         }
-
     }
 }

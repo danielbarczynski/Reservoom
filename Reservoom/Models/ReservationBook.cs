@@ -1,4 +1,7 @@
 ﻿using Reservoom.Exceptions;
+using Reservoom.Services.ReservationConflictValidators;
+using Reservoom.Services.ReservationCreators;
+using Reservoom.Services.ReservationProviders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,28 +12,41 @@ namespace Reservoom.Models
 {
     public class ReservationBook
     {
-        private readonly List<Reservation> _reservations;
+        private readonly IReservationProvider _reservationProvider;
+        private readonly IReservationCreator _reservationCreator;
+        private readonly IReservationConflictValidator _reservationConflictValidator;
 
-        public ReservationBook()
+        public ReservationBook(IReservationProvider reservationProvider, IReservationCreator reservationCreator, IReservationConflictValidator reservationConflictValidator)
         {
-            _reservations = new List<Reservation>();
+            _reservationProvider = reservationProvider;
+            _reservationCreator = reservationCreator;
+            _reservationConflictValidator = reservationConflictValidator;
         }
 
-        public IEnumerable<Reservation> GetAllReservations()
+        /// <summary>
+        /// Get all reservations.
+        /// </summary>
+        /// <returns>All reservations in the reservation book.</returns>
+        public async Task<IEnumerable<Reservation>> GetAllReservations()
         {
-            return _reservations;
+            return await _reservationProvider.GetAllReservations();
         }
 
-        public void AddReservation(Reservation reservation)
+        /// <summary>
+        /// Add a reservation to the reservation book.
+        /// </summary>
+        /// <param name="reservation">The incoming reservation.</param>
+        /// <exception cref="ReservationConflictException">Thrown if incoming reservation conflicts with existing reservation.</exception>
+        public async Task AddReservation(Reservation reservation)
         {
-            foreach (var existingReservation in _reservations)
+            Reservation conflictingReservation = await _reservationConflictValidator.GetConflictingReservation(reservation);
+
+            if(conflictingReservation != null)
             {
-                if (existingReservation.Conflicts(reservation))
-                {
-                    throw new ReservationConflictException(existingReservation, reservation);
-                }
+                throw new ReservationConflictException(conflictingReservation, reservation);
             }
-            _reservations.Add(reservation);
+
+            await _reservationCreator.CreateReservation(reservation);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Reservoom.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,20 +13,29 @@ namespace Reservoom.Models
 
         public string Name { get; }
 
-        public Hotel(string name)
+        public Hotel(string name, ReservationBook reservationBook)
         {
             Name = name;
-            _reservationBook = new ReservationBook(); // no dependency injection
+            _reservationBook = reservationBook;
         }
 
-        public IEnumerable<Reservation> GetAllReservations()
+        /// <summary>
+        /// Get all reservations.
+        /// </summary>
+        /// <returns>All reservations in the hotel reservation book.</returns>
+        public async Task<IEnumerable<Reservation>> GetAllReservations()
         {
-            return _reservationBook.GetAllReservations();
+            return await _reservationBook.GetAllReservations();
         }
 
-        public void MakeReservation(Reservation reservation)
+        /// <summary>
+        /// Make a reservation.
+        /// </summary>
+        /// <param name="reservation">The incoming reservation.</param>
+        /// <exception cref="ReservationConflictException">Thrown if incoming reservation conflicts with existing reservation.</exception>
+        public async Task MakeReservation(Reservation reservation)
         {
-            _reservationBook.AddReservation(reservation);
+            await _reservationBook.AddReservation(reservation);
         }
     }
 }

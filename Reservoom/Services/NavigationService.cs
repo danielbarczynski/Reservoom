@@ -1,4 +1,4 @@
-﻿using Reservoom.Store;
+﻿using Reservoom.Stores;
 using Reservoom.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,6 +18,7 @@ namespace Reservoom.Services
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;
         }
+
         public void Navigate()
         {
             _navigationStore.CurrentViewModel = _createViewModel();
